@@ -1,9 +1,25 @@
 import speech_recognition as sr
 from gtts import gTTS
 from playsound import playsound
+import skills.clock as clock
 
 
+def find_skill(text):
+    if "que horas são" in text.lower():
+        speak = clock.what_time_is_it()
+    
+    #if "..." in text.lower():
+    #    speak = "Resposta da outra skill"
+        
+    else:
+        speak = "Não conheço essa"
+        
+    cria_audio(speak)
+        
 def cria_audio(audio):
+    '''
+    Recebe um texto, cria um arquivo de áudio e o reproduz.
+    '''
     tts = gTTS(audio, lang="pt-br")
     tts.save("audios/phrase.mp3")
     playsound("audios/phrase.mp3")
@@ -17,7 +33,7 @@ def main():
     try:
         frase = r.recognize_google(audio, language="pt-BR")
         print("Você disse: " + frase)
-        cria_audio(frase)
+        find_skill(frase)
             
     except sr.UnknownValueError:
         print("Não entendi o que disse")
