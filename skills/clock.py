@@ -1,6 +1,7 @@
 import time
 
 
+
 def humanize_time(time_str):
     """
     Converte um horário em um texto legível para humanos.
@@ -21,3 +22,6 @@ def what_time_is_it():
     to_speech = humanize_time(t)
     return to_speech
 
+# def start_timer(text):
+    
+    

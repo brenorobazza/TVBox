@@ -5,6 +5,7 @@ from playsound import playsound
 import skills.clock as clock
 import tempfile
 
+ACTIVATION_WORD = "Márcia"
 
 class COMMAND:
     """
@@ -31,7 +32,8 @@ def find_skill(text):
 
     if "que horas são" in text:
         text_answer = clock.what_time_is_it()
-    elif "desligar" in text:
+        
+    elif any(word in text for word in ["desligar", "tchau", "até logo", "adeus"]):
         text_answer = "Até logo!"
         command = COMMAND.DESLIGAR
 
@@ -61,15 +63,20 @@ def main():
     while running:
         with sr.Microphone() as source:
             print("Escutando...")
-            audio = r.listen(source)
+            audio = r.listen(source, phrase_time_limit=5)
 
         try:
             frase = r.recognize_google(audio, language="pt-BR")
+            
             print("Você disse: " + frase)
-            command = find_skill(frase)
+            if ACTIVATION_WORD.lower() in frase.lower():
+                
+                command = find_skill(frase)
 
-            if command == COMMAND.DESLIGAR:
-                running = False
+                if command == COMMAND.DESLIGAR:
+                    running = False
+            
+                    
 
         except sr.UnknownValueError:
             print("Não entendi o que disse")
