@@ -3,8 +3,7 @@ import speech_recognition as sr
 from gtts import gTTS
 from playsound import playsound
 import skills.clock as clock
-
-AUDIO_PATH = "audios/phrase.mp3"
+import tempfile
 
 class COMMAND:
     """
@@ -12,7 +11,6 @@ class COMMAND:
     """
     DEFAULT = 0
     DESLIGAR = 1
-
 
 def find_skill(text):
     """
@@ -37,7 +35,6 @@ def find_skill(text):
     say(text_answer)
     return command
 
-
 def say(text):
     """
     Converte o texto em fala e reproduz o áudio.
@@ -46,11 +43,11 @@ def say(text):
         text (str): Texto a ser convertido em fala.
     """
     tts = gTTS(text, lang="pt-br")
-    if not os.path.exists('audios'):
-        os.makedirs('audios')
-    tts.save(AUDIO_PATH)
-    playsound(AUDIO_PATH)
-    
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as fp:
+        temp_path = fp.name
+    tts.save(temp_path)
+    playsound(temp_path)
+    os.remove(temp_path)
 
 def main():
     r = sr.Recognizer()
