@@ -7,16 +7,19 @@ import tempfile
 import threading
 import time
 
-ACTIVATION_WORD = "Márcia"
+ACTIVATION_WORD = "Box"
+
 
 class COMMAND:
     """
     Classe com os comandos padrão que podem ser retornados pelas skills.
+
+    Não sei se é útil, só está sendo utilizado para indicar que o usuário
+    pediu para desligar o assistente, o que pode ser feito por outros meios
     """
 
     DEFAULT = 0
     DESLIGAR = 1
-
 
 def find_skill(text):
     """
@@ -28,28 +31,39 @@ def find_skill(text):
     Returns:
         int: Código de comando.
     """
-    text = text.lower()
-    text_answer = "Desculpe, não entendi"
     command = COMMAND.DEFAULT
 
     if "que horas são" in text:
-        text_answer = clock.what_time_is_it()
-    
-    if any(word in text for word in ["timer", "temporizador", "cronometrar"]):
-        clock.create_timer(text)
-        text_answer = "Timer iniciado"
-        
-        
-    elif any(word in text for word in ["desligar", "tchau", "até logo", "adeus"]):
-        text_answer = "Até logo!"
-        command = COMMAND.DESLIGAR
+        say(clock.what_time_is_it())
 
-    say(text_answer)
+    if any(
+        word in text for word in ["timer", "temporizador", "cronometrar", "cronômetro"]
+    ):
+        clock.create_timer(text)
+        say("Timer iniciado")
+
+    elif any(word in text for word in ["desligar", "tchau", "até logo", "adeus"]):
+        say("Até logo!")
+        command = COMMAND.DESLIGAR
+        
+    elif any(word in text for word in ['olá', 'oi']):
+        say("Olá!")
+        
+    elif any(word in text for word in ['tudo bem', 'como vai']):
+        say("Tudo bem, e com você?")
+    
+    else:
+        say("Desculpe, não entendi")
+
     return command
 
 
 def play_audio(audio_path):
+    """
+    Reproduz um áudio específico
+    """
     playsound(audio_path)
+
 
 def say(text):
     """
@@ -62,14 +76,14 @@ def say(text):
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as fp:
         temp_path = fp.name
     tts.save(temp_path)
-    playsound(temp_path)
+    play_audio(temp_path)
     os.remove(temp_path)
 
 
 def main():
     r = sr.Recognizer()
     running = True
-    
+
     # Thread para verificar a fila de mensagens do temporizador
     def check_timer():
         while running:
@@ -80,30 +94,27 @@ def main():
                     say("Timer finalizado")
             except clock.queue.Empty:
                 pass
-            
-            # Atraso para evitar uso excessivo da CPU
-            time.sleep(0.1) 
 
+            # Atraso para evitar uso excessivo da CPU
+            time.sleep(0.1)
+
+    # Inicia thread que verifica se o temporizador foi finalizado
     timer_thread = threading.Thread(target=check_timer)
     timer_thread.start()
 
     while running:
+        # Aguarda instruções
         with sr.Microphone() as source:
             print("Escutando...")
-            audio = r.listen(source, phrase_time_limit=5)
+            audio = r.listen(source, phrase_time_limit=8)
 
         try:
-            frase = r.recognize_google(audio, language="pt-BR")
-            
+            frase = r.recognize_google(audio, language="pt-BR").lower()
             print("Você disse: " + frase)
-            if ACTIVATION_WORD.lower() in frase.lower():
-                
+            if ACTIVATION_WORD.lower() in frase:
                 command = find_skill(frase)
-
                 if command == COMMAND.DESLIGAR:
                     running = False
-            
-                    
 
         except sr.UnknownValueError:
             print("Não entendi o que disse")
