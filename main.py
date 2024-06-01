@@ -3,6 +3,7 @@ import speech_recognition as sr
 from gtts import gTTS
 from playsound import playsound
 import skills.clock as clock
+import skills.temperature as temperature
 import tempfile
 import threading
 import time
@@ -56,7 +57,7 @@ def find_skill(text):
         say(clock.what_time_is_it())
 
     # Iniciar timer
-    if find_word_in_phrase(
+    elif find_word_in_phrase(
         text, ["timer", "temporizador", "cronometrar", "cronômetro"]
     ):
         clock.create_timer(text)
@@ -74,6 +75,11 @@ def find_skill(text):
     # Responder "tudo bem?"
     elif find_word_in_phrase(text, ["tudo bem", "como vai"]):
         say("Tudo bem, e com você?")
+
+    #Responder a temperatura em uma dada cidade ou no local do usuário
+    elif find_word_in_phrase(text, ["temperatura"]):
+
+        say(temperature.get_temperature(text))
 
     # Caso não tenha encontrado a skill
     else:
