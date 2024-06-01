@@ -5,7 +5,7 @@ Este projeto tem como objetivo criar um assistente virtual inteligente, acessív
 ## Inicialização
 
 ### Configuração do ambiente
-Para a primeira inicialização, recomendamos criar um ambiente virtual para conter todos os pacotes necessários
+Para a primeira inicialização, recomendamos utilizar o `git bash` e criar um ambiente virtual para conter todos os pacotes necessários
 
 1) Crie o ambiente virtual
 

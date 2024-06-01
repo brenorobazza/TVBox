@@ -56,7 +56,7 @@ def find_skill(text):
         say(clock.what_time_is_it())
 
     # Iniciar timer
-    if find_word_in_phrase(
+    elif find_word_in_phrase(
         text, ["timer", "temporizador", "cronometrar", "cronômetro"]
     ):
         clock.create_timer(text)
@@ -135,6 +135,7 @@ def main():
         try:
             frase = r.recognize_google(audio, language="pt-BR").lower()
             print("Você disse: " + frase)
+            
             if ACTIVATION_WORD.lower() in frase:
                 command = find_skill(frase)
                 if command == COMMAND.DESLIGAR:
