@@ -28,11 +28,11 @@ python -m pip install -r requirements.txt
 Basta executar o comando abaixo
 
 ```bash
-python main.py
+bash start-assistant.sh
 ```
 
 O assistente virtual será iniciado, esperando por um comando de voz.
-Tente perguntar "que horas são?"
+Tente perguntar "Márcia, que horas são?"
 
 Para sair do ambiente virtual, basta executar o comando `deactivate`.
 
