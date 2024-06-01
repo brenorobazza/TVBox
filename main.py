@@ -4,6 +4,8 @@ from gtts import gTTS
 from playsound import playsound
 import skills.clock as clock
 import tempfile
+import threading
+import time
 
 ACTIVATION_WORD = "Márcia"
 
@@ -32,6 +34,11 @@ def find_skill(text):
 
     if "que horas são" in text:
         text_answer = clock.what_time_is_it()
+    
+    if any(word in text for word in ["timer", "temporizador", "cronometrar"]):
+        clock.create_timer(text)
+        text_answer = "Timer iniciado"
+        
         
     elif any(word in text for word in ["desligar", "tchau", "até logo", "adeus"]):
         text_answer = "Até logo!"
@@ -40,6 +47,9 @@ def find_skill(text):
     say(text_answer)
     return command
 
+
+def play_audio(audio_path):
+    playsound(audio_path)
 
 def say(text):
     """
@@ -59,6 +69,23 @@ def say(text):
 def main():
     r = sr.Recognizer()
     running = True
+    
+    # Thread para verificar a fila de mensagens do temporizador
+    def check_timer():
+        while running:
+            try:
+                message = clock.message_queue.get_nowait()
+                if message == "timer_finished":
+                    play_audio("audios/timer_off.mp3")
+                    say("Timer finalizado")
+            except clock.queue.Empty:
+                pass
+            
+            # Atraso para evitar uso excessivo da CPU
+            time.sleep(0.1) 
+
+    timer_thread = threading.Thread(target=check_timer)
+    timer_thread.start()
 
     while running:
         with sr.Microphone() as source:
