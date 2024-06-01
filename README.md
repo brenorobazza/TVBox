@@ -24,17 +24,28 @@ source tvbox/Scripts/activate
 python -m pip install -r requirements.txt
 ```
 
+> Para sair do ambiente virtual, basta executar o comando `deactivate`.
+
 ### Inicialização do assistente virtual
 Basta executar o comando abaixo
 
 ```bash
-python main.py
+bash start-assistant.sh
 ```
 
 O assistente virtual será iniciado, esperando por um comando de voz.
-Tente perguntar "que horas são?"
+Tente perguntar "Box, que horas são?"
 
-Para sair do ambiente virtual, basta executar o comando `deactivate`.
+#### Skills e Comandos
+
+| Skill      | Funcionalidade | Descrição                                        | Palavras de ativação                                       | Exemplo                                                                            |
+| ---------- | -------------- | ------------------------------------------------ | ---------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Assistente | Desligar       | Desliga                                          | `Desligar`<br>`Tchau`<br>`Até logo`<br>`Adeus`             | *Box, até logo*                                                                    |
+| Assistente | Saudações      | Responde saudações, como "Olá" ou "Tudo bem?"    | `Olá`<br>`Oi`<br>`Tudo bem?`<br>`Como vai?`                | *Box, tudo bem?*<br>*olá, Box*                                                     |
+| Clock      | Horário atual  | Informa o horário atual                          | `Que horas são`                                            | *Box, Que horas são?*                                                              |
+| Clock      | Temporizador   | Inicia um temporizador para o período escolhido. | `Timer`<br>`Temporizador`<br>`Cronometrar`<br>`Cronometro` | *Box, inicar timer para 5 segundos*<br>*Box, cronometrar 1 hora e 10 segundos* |
+
+
 
 ## Instalação de novas bibliotecas
 Qualquer instalação de novas biblioteca precisa ser realizada no ambiente `tvbox`:
