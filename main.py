@@ -21,6 +21,18 @@ class COMMAND:
     DEFAULT = 0
     DESLIGAR = 1
 
+
+def find_word_in_phrase(phrase: str, list_of_words: list):
+    """
+    Recebe uma frase e uma lista de palavras.
+    Se uma palavra da lista for encontrada na frase, retorna True
+    """
+    phrase = phrase.lower()
+    if any(word.lower() in phrase for word in list_of_words):
+        return True
+    return False
+
+
 def find_skill(text):
     """
     Determina qual skill deve ser chamada com base no texto fornecido.
@@ -31,27 +43,39 @@ def find_skill(text):
     Returns:
         int: Código de comando.
     """
+    
+    # Se apenas falou a palavra de ativação, retornar
+    if text == ACTIVATION_WORD:
+        return
+    
     command = COMMAND.DEFAULT
+    
 
-    if "que horas são" in text:
+    # Dizer as horas
+    if find_word_in_phrase(text, ["que horas são"]):
         say(clock.what_time_is_it())
 
-    if any(
-        word in text for word in ["timer", "temporizador", "cronometrar", "cronômetro"]
+    # Iniciar timer
+    if find_word_in_phrase(
+        text, ["timer", "temporizador", "cronometrar", "cronômetro"]
     ):
         clock.create_timer(text)
         say("Timer iniciado")
 
-    elif any(word in text for word in ["desligar", "tchau", "até logo", "adeus"]):
+    # Desligar Assistente
+    elif find_word_in_phrase(text, ["desligar", "tchau", "até logo", "adeus"]):
         say("Até logo!")
         command = COMMAND.DESLIGAR
-        
-    elif any(word in text for word in ['olá', 'oi']):
+
+    # Responder saudações
+    elif find_word_in_phrase(text, ["olá", "oi"]):
         say("Olá!")
-        
-    elif any(word in text for word in ['tudo bem', 'como vai']):
+
+    # Responder "tudo bem?"
+    elif find_word_in_phrase(text, ["tudo bem", "como vai"]):
         say("Tudo bem, e com você?")
-    
+
+    # Caso não tenha encontrado a skill
     else:
         say("Desculpe, não entendi")
 
