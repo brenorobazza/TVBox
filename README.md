@@ -72,3 +72,8 @@ source tvbox/Scripts/activate
 ```bash
 python -m pip install <lib_name>
 ```
+
+## Boas práticas
+Box funciona a partir de um programa principal `main.py` que funciona como *driver* do assistente. Ele é responsável por executar o loop principal da execução, ouvindo e transcrevendo os comandos do usuário e, a partir das palavras-chave encontradas, encaminhar a execução para a *skill* correta.
+
+Todas as regras de negócio das skills precisam estar o máximo possível contidas na skills. Ou seja, o `main.py` não precisa, por exemplo, saber fazer requisições à APIs quando essas requisições serão feitas somente por uma skill específica. É claro que exceções se aplicam, mas de maneira moderada.
