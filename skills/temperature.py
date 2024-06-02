@@ -1,6 +1,8 @@
 import re
 import requests
 
+#documentação da api wttr https://github.com/chubin/wttr.in
+
 def get_city_from_ip():
     response = requests.get("http://ip-api.com/json/")
     data = response.json()
@@ -29,15 +31,15 @@ def get_temperature(text):
     
     return f"Está {temperature} em {city}" 
 
-def get_weather_forecast(text):
+#def get_weather_forecast(text):
     city = get_city(text)
 
-    url = f"http://wttr.in/{city}?format=%t"
+    url = f"http://wttr.in/{city}?format=%C"
     response = requests.get(url)
-    data = response.text.strip().split(' ')
-    condition = ' '.join(data[:-1])
+    forecast = response.text.strip()
 
-    return f"{condition} em {city}"
+
+    return f"Previsão do tempo para {city}: {forecast}"
 
 
 
