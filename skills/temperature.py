@@ -30,4 +30,14 @@ def get_temperature(text):
     return f"Está {temperature} em {city}" 
 
 def get_weather_forecast(text):
+    city = get_city(text)
+
+    url = f"http://wttr.in/{city}?format=%t"
+    response = requests.get(url)
+    data = response.text.strip().split(' ')
+    condition = ' '.join(data[:-1])
+
+    return f"{condition} em {city}"
+
+
 
