@@ -53,6 +53,9 @@ Tente perguntar "Box, que horas são?"
 | Assistente | Saudações      | Responde saudações, como "Olá" ou "Tudo bem?"    | `Olá`<br>`Oi`<br>`Tudo bem?`<br>`Como vai?`                | *Box, tudo bem?*<br>*olá, Box*                                                     |
 | Clock      | Horário atual  | Informa o horário atual                          | `Que horas são`                                            | *Box, Que horas são?*                                                              |
 | Clock      | Temporizador   | Inicia um temporizador para o período escolhido. | `Timer`<br>`Temporizador`<br>`Cronometrar`<br>`Cronômetro` | *Box, inicar timer para 5 segundos*<br>*Box, cronometrar 1 hora e 10 segundos* |
+| Piadocas      | Piadocas    | Diz uma piada aleatória | `Piada`<br>`Charada` | *Box, me conte uma piada* |
+| Temperature      | Temperatura    | Diz a temperatura na cidade em que o usuário está | `Temperatura` | *Box, qual a temperatura agora?* |
+| Temperature      | Temperatura    | Diz a temperatura na cidade pedida pelo usuário | `Temperatura em <cidade>` | *Box, qual a temperatura agora em Campinas?* |
 
 
 
