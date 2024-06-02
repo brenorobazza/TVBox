@@ -80,6 +80,10 @@ def find_skill(text):
     elif find_word_in_phrase(text, ["temperatura"]):
 
         say(temperature.get_temperature(text))
+    
+    elif find_word_in_phrase(text, ["previsão do tempo"]):
+
+        say(temperature.get_weather_forecast(text))
 
     # Caso não tenha encontrado a skill
     else:
