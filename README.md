@@ -48,7 +48,7 @@ Tente perguntar "Box, que horas são?"
 #### Skills e Comandos
 
 | Skill      | Funcionalidade | Descrição                                        | Palavras de ativação                                       | Exemplo                                                                            |
-| ---------- | -------------- | ------------------------------------------------ | ---------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| :---------- | :-------------- | :------------------------------------------------ | :---------------------------------------------------------- | :---------------------------------------------------------------------------------- |
 | Assistente | Desligar       | Desliga                                          | `Desligar`<br>`Tchau`<br>`Até logo`<br>`Adeus`             | *Box, até logo*                                                                    |
 | Assistente | Saudações      | Responde saudações, como "Olá" ou "Tudo bem?"    | `Olá`<br>`Oi`<br>`Tudo bem?`<br>`Como vai?`                | *Box, tudo bem?*<br>*olá, Box*                                                     |
 | Clock      | Horário atual  | Informa o horário atual                          | `Que horas são`                                            | *Box, Que horas são?*                                                              |
