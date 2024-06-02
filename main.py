@@ -81,12 +81,10 @@ def find_skill(text):
     return command
 
 
-
-
 def main():
     r = sr.Recognizer()
     running = True
-
+    
     # Thread para verificar a fila de mensagens do temporizador
     def check_timer():
         while running:
@@ -103,6 +101,7 @@ def main():
 
     # Inicia thread que verifica se o temporizador foi finalizado
     timer_thread = threading.Thread(target=check_timer)
+    timer_thread.daemon = True
     timer_thread.start()
 
     while running:
@@ -124,6 +123,7 @@ def main():
             print("Não entendi o que disse")
         except sr.RequestError as e:
             print(f"Não consegui encontrar resultados; {e}")
+    
 
 
 if __name__ == "__main__":
