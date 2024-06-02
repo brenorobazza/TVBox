@@ -106,7 +106,7 @@ def main():
             try:
                 message = clock.message_queue.get_nowait()
                 if message == "timer_finished":
-                    speak.play_audio("audios/timer_off.mp3")
+                    speak.play_audio("audios/timeout.wav")
                     speak.say("Timer finalizado")
             except clock.queue.Empty:
                 pass
@@ -119,6 +119,7 @@ def main():
     timer_thread.daemon = True
     timer_thread.start()
 
+    speak.play_audio('audios/startup.wav')
     while running:
         # Aguarda instruções
         with sr.Microphone() as source:
