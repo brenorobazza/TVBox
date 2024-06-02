@@ -5,6 +5,7 @@ import speech_recognition as sr
 import skills.clock as clock
 import skills.speak as speak
 import skills.piadocas as piada
+import skills.temperature as temperature
 
 
 ACTIVATION_WORD = "Box"
@@ -78,6 +79,15 @@ def find_skill(text):
     # Contar uma piada    
     elif find_word_in_phrase(text, ["piada", "charada"]):
         speak.say(piada.get_piada(text))
+
+    #Responder a temperatura em uma dada cidade ou no local do usuário
+    elif find_word_in_phrase(text, ["temperatura"]):
+
+        speak.say(temperature.get_temperature(text))
+    
+    #elif find_word_in_phrase(text, ["previsão do tempo"]):
+
+        #say(temperature.get_weather_forecast(text))
 
     # Caso não tenha encontrado a skill
     else:

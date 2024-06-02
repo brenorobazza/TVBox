@@ -52,7 +52,7 @@ Tente perguntar "Box, que horas são?"
 | Assistente | Desligar       | Desliga                                          | `Desligar`<br>`Tchau`<br>`Até logo`<br>`Adeus`             | *Box, até logo*                                                                    |
 | Assistente | Saudações      | Responde saudações, como "Olá" ou "Tudo bem?"    | `Olá`<br>`Oi`<br>`Tudo bem?`<br>`Como vai?`                | *Box, tudo bem?*<br>*olá, Box*                                                     |
 | Clock      | Horário atual  | Informa o horário atual                          | `Que horas são`                                            | *Box, Que horas são?*                                                              |
-| Clock      | Temporizador   | Inicia um temporizador para o período escolhido. | `Timer`<br>`Temporizador`<br>`Cronometrar`<br>`Cronometro` | *Box, inicar timer para 5 segundos*<br>*Box, cronometrar 1 hora e 10 segundos* |
+| Clock      | Temporizador   | Inicia um temporizador para o período escolhido. | `Timer`<br>`Temporizador`<br>`Cronometrar`<br>`Cronômetro` | *Box, inicar timer para 5 segundos*<br>*Box, cronometrar 1 hora e 10 segundos* |
 
 
 
