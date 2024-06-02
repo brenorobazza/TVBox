@@ -1,19 +1,22 @@
-# Assistente Virtual para domicílios utilizando TVBox
+# Box - Assistente Virtual utilizando TVBox
 
-Este projeto tem como objetivo criar um assistente virtual inteligente, acessível e open source, para domicílios, utilizando para isso uma TVBox.
+Este projeto tem como objetivo criar um assistente virtual inteligente, acessível e open source utilizando para isso uma TVBox. O assistente virtual
 
 ## Inicialização
 
 ### Configuração do ambiente
-Para a primeira inicialização, recomendamos criar um ambiente virtual para conter todos os pacotes necessários
+Os passos a seguir são necessários apenas para a configuração inicial do assistente virtual. Após instalar as dependências não será mais necessário executar os códigos nesta seção.
 
-1) Crie o ambiente virtual
+Como a TVBox utiliza Armbian, supomos a execução dos comandos utilizando o bash. Caso esteja tentando utilizar o Windows para programar/executar o assistente virtual, recomendamos utilizar o [git bash](https://git-scm.com/downloads).
+
+
+1) Crie o ambiente virtual para instalação das dependências
 
 ```bash
 python -m venv tvbox
 ```
 
-2) inicialize o ambiente
+2) inicialize o ambiente virtual
 
 ```bash
 source tvbox/Scripts/activate
@@ -27,7 +30,13 @@ python -m pip install -r requirements.txt
 > Para sair do ambiente virtual, basta executar o comando `deactivate`.
 
 ### Inicialização do assistente virtual
-Basta executar o comando abaixo
+Estando no ambiente virtual criado, basta executar o comando abaixo
+
+```bash
+python main.py
+```
+
+Ou então, caso não esteja no ambiente virtual, use o comando abaixo
 
 ```bash
 bash start-assistant.sh

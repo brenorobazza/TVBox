@@ -77,6 +77,7 @@ def create_timer(text):
     print(f"Temporizador iniciado para {future_time}.")
 
     thread = threading.Thread(target=timer_thread, args=(future_time, message_queue))
+    thread.daemon = True
     thread.start()
 
 

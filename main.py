@@ -1,12 +1,12 @@
-import os
-import speech_recognition as sr
-from gtts import gTTS
-from playsound import playsound
-import skills.clock as clock
-import skills.temperature as temperature
-import tempfile
 import threading
 import time
+import speech_recognition as sr
+
+import skills.clock as clock
+import skills.speak as speak
+import skills.piadocas as piada
+import skills.temperature as temperature
+
 
 ACTIVATION_WORD = "Box"
 
@@ -54,32 +54,36 @@ def find_skill(text):
 
     # Dizer as horas
     if find_word_in_phrase(text, ["que horas são"]):
-        say(clock.what_time_is_it())
+        speak.say(clock.what_time_is_it())
 
     # Iniciar timer
     elif find_word_in_phrase(
         text, ["timer", "temporizador", "cronometrar", "cronômetro"]
     ):
         clock.create_timer(text)
-        say("Timer iniciado")
+        speak.say("Timer iniciado")
 
     # Desligar Assistente
     elif find_word_in_phrase(text, ["desligar", "tchau", "até logo", "adeus"]):
-        say("Até logo!")
+        speak.say("Até logo!")
         command = COMMAND.DESLIGAR
 
     # Responder saudações
     elif find_word_in_phrase(text, ["olá", "oi"]):
-        say("Olá!")
+        speak.say("Olá!")
 
     # Responder "tudo bem?"
     elif find_word_in_phrase(text, ["tudo bem", "como vai"]):
-        say("Tudo bem, e com você?")
+        speak.say("Tudo bem, e com você?")
+    
+    # Contar uma piada    
+    elif find_word_in_phrase(text, ["piada", "charada"]):
+        speak.say(piada.get_piada(text))
 
     #Responder a temperatura em uma dada cidade ou no local do usuário
     elif find_word_in_phrase(text, ["temperatura"]):
 
-        say(temperature.get_temperature(text))
+        speak.say(temperature.get_temperature(text))
     
     #elif find_word_in_phrase(text, ["previsão do tempo"]):
 
@@ -87,45 +91,23 @@ def find_skill(text):
 
     # Caso não tenha encontrado a skill
     else:
-        say("Desculpe, não entendi")
+        speak.say("Desculpe, não entendi")
 
     return command
-
-
-def play_audio(audio_path):
-    """
-    Reproduz um áudio específico
-    """
-    playsound(audio_path)
-
-
-def say(text):
-    """
-    Converte o texto em fala e reproduz o áudio.
-
-    Args:
-        text (str): Texto a ser convertido em fala.
-    """
-    tts = gTTS(text, lang="pt-br")
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as fp:
-        temp_path = fp.name
-    tts.save(temp_path)
-    play_audio(temp_path)
-    os.remove(temp_path)
 
 
 def main():
     r = sr.Recognizer()
     running = True
-
+    
     # Thread para verificar a fila de mensagens do temporizador
     def check_timer():
         while running:
             try:
                 message = clock.message_queue.get_nowait()
                 if message == "timer_finished":
-                    play_audio("audios/timer_off.mp3")
-                    say("Timer finalizado")
+                    speak.play_audio("audios/timer_off.mp3")
+                    speak.say("Timer finalizado")
             except clock.queue.Empty:
                 pass
 
@@ -134,6 +116,7 @@ def main():
 
     # Inicia thread que verifica se o temporizador foi finalizado
     timer_thread = threading.Thread(target=check_timer)
+    timer_thread.daemon = True
     timer_thread.start()
 
     while running:
@@ -145,6 +128,7 @@ def main():
         try:
             frase = r.recognize_google(audio, language="pt-BR").lower()
             print("Você disse: " + frase)
+            
             if ACTIVATION_WORD.lower() in frase:
                 command = find_skill(frase)
                 if command == COMMAND.DESLIGAR:
@@ -154,6 +138,7 @@ def main():
             print("Não entendi o que disse")
         except sr.RequestError as e:
             print(f"Não consegui encontrar resultados; {e}")
+    
 
 
 if __name__ == "__main__":

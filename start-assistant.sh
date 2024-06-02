@@ -1,3 +1,5 @@
 
 source tvbox/Scripts/activate
-py main.py
+echo "Iniciando ambiente virtual"
+echo "Iniciando Box"
+python main.py
