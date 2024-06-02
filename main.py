@@ -4,6 +4,7 @@ import speech_recognition as sr
 
 import skills.clock as clock
 import skills.speak as speak
+import skills.piadocas as piada
 
 
 ACTIVATION_WORD = "Box"
@@ -73,6 +74,10 @@ def find_skill(text):
     # Responder "tudo bem?"
     elif find_word_in_phrase(text, ["tudo bem", "como vai"]):
         speak.say("Tudo bem, e com você?")
+    
+    # Contar uma piada    
+    elif find_word_in_phrase(text, ["piada", "charada"]):
+        speak.say(piada.get_piada(text))
 
     # Caso não tenha encontrado a skill
     else:
