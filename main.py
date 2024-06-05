@@ -88,7 +88,6 @@ def find_skill(text):
 
     #Realizar uma operaçao matematica
     elif find_word_in_phrase(text, ["+","x","-","dividido"]):
-        print(calculo.get_calculo(text))
         speak.say(calculo.get_calculo(text))    
 
     #elif find_word_in_phrase(text, ["previsão do tempo"]):
