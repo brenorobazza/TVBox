@@ -54,6 +54,7 @@ Tente perguntar "Box, que horas são?"
 | Clock      | Horário atual  | Informa o horário atual                          | `Que horas são`                                            | *Box, Que horas são?*                                                              |
 | Clock      | Temporizador   | Inicia um temporizador para o período escolhido. | `Timer`<br>`Temporizador`<br>`Cronometrar`<br>`Cronômetro` | *Box, iniciar timer para 5 segundos*<br>*Box, cronometrar 1 hora e 10 segundos* |
 | Piadocas      | Piadocas    | Diz uma piada aleatória | `Piada`<br>`Charada` | *Box, me conte uma piada* |
+| Quiz      | Perguntas gerais    | Faz uma pergunta e oferece quatro alternativas como resposta | `Quiz` | *Box, vamos jogar um quiz?*<br>*Box, iniciar quiz*<br>*Box, faça um quiz* |
 | Temperature      | Temperatura    | Diz a temperatura na cidade em que o usuário está | `Temperatura` | *Box, qual a temperatura agora?* |
 | Temperature      | Temperatura    | Diz a temperatura na cidade pedida pelo usuário | `Temperatura em <cidade>` | *Box, qual a temperatura agora em Campinas?* |
 
