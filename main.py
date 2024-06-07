@@ -5,6 +5,7 @@ import speech_recognition as sr
 import skills.clock as clock
 import skills.speak as speak
 import skills.piadocas as piada
+import skills.quiz as quiz
 import skills.temperature as temperature
 
 
@@ -44,13 +45,12 @@ def find_skill(text):
     Returns:
         int: Código de comando.
     """
-    
+
     # Se apenas falou a palavra de ativação, retornar
     if text == ACTIVATION_WORD:
         return
-    
+
     command = COMMAND.DEFAULT
-    
 
     # Dizer as horas
     if find_word_in_phrase(text, ["que horas são"]):
@@ -75,19 +75,37 @@ def find_skill(text):
     # Responder "tudo bem?"
     elif find_word_in_phrase(text, ["tudo bem", "como vai"]):
         speak.say("Tudo bem, e com você?")
-    
-    # Contar uma piada    
+
+    # Contar uma piada
     elif find_word_in_phrase(text, ["piada", "charada"]):
         speak.say(piada.get_piada(text))
 
-    #Responder a temperatura em uma dada cidade ou no local do usuário
+    # Começar um quiz
+    elif find_word_in_phrase(
+        text, ["jogar", "iniciar", "faça"]
+    ) and find_word_in_phrase(text, ["quiz"]):
+
+        speak.say("Legal, vamos começar o quiz!")
+
+        for count, q in enumerate(quiz.select_questions()):
+            speak.say(f"Pergunta número{str(count+1)}")
+
+            speak.say(quiz.get_question(q))
+            speak.say(quiz.get_items(q))
+            # time.sleep(4)
+            speak.say(quiz.get_answer(q))
+            # time.sleep(2)
+
+        speak.say("E então, acertou quantas? Até a próxima!")
+
+    # Responder a temperatura em uma dada cidade ou no local do usuário
     elif find_word_in_phrase(text, ["temperatura"]):
 
         speak.say(temperature.get_temperature(text))
-    
-    #elif find_word_in_phrase(text, ["previsão do tempo"]):
 
-        #say(temperature.get_weather_forecast(text))
+    # elif find_word_in_phrase(text, ["previsão do tempo"]):
+
+    # say(temperature.get_weather_forecast(text))
 
     # Caso não tenha encontrado a skill
     else:
@@ -99,7 +117,7 @@ def find_skill(text):
 def main():
     r = sr.Recognizer()
     running = True
-    
+
     # Thread para verificar a fila de mensagens do temporizador
     def check_timer():
         while running:
@@ -119,7 +137,7 @@ def main():
     timer_thread.daemon = True
     timer_thread.start()
 
-    speak.play_audio('audios/startup.wav')
+    speak.play_audio("audios/startup.wav")
     while running:
         # Aguarda instruções
         with sr.Microphone() as source:
@@ -129,7 +147,7 @@ def main():
         try:
             frase = r.recognize_google(audio, language="pt-BR").lower()
             print("Você disse: " + frase)
-            
+
             if ACTIVATION_WORD.lower() in frase:
                 command = find_skill(frase)
                 if command == COMMAND.DESLIGAR:
@@ -139,7 +157,6 @@ def main():
             print("Não entendi o que disse")
         except sr.RequestError as e:
             print(f"Não consegui encontrar resultados; {e}")
-    
 
 
 if __name__ == "__main__":
