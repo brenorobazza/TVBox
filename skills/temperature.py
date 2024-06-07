@@ -27,7 +27,7 @@ def get_temperature(text):
     
     url = f"http://wttr.in/{city}?format=%t"
     response = requests.get(url)
-    temperature = response.text.strip()
+    temperature = response.text.strip().replace("+", "")
     
     return f"Está {temperature} em {city}" 
 
