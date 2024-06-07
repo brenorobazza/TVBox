@@ -13,6 +13,9 @@ def get_calculo(expression):
 
         # Utilizar uma expressão regular para identificar e substituir operações matemáticas básicas
         expression = re.sub(r'[^0-9+\-*/(). ]', '', expression)
+        # Verificar se há tentativa de divisão por zero
+        if re.search(r'/\s*0\b', expression):
+            return "Divisão por 0 é inválida."
         result = round(eval(expression),2)
         return f"O resultado da operação {expression} é {result}."
     except Exception as e:
