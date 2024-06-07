@@ -99,6 +99,7 @@ def find_skill(text):
 def main():
     r = sr.Recognizer()
     running = True
+    first_run = True
     
     # Thread para verificar a fila de mensagens do temporizador
     def check_timer():
@@ -119,10 +120,13 @@ def main():
     timer_thread.daemon = True
     timer_thread.start()
 
-    speak.play_audio('audios/startup.wav')
     while running:
+            
         # Aguarda instruções
         with sr.Microphone() as source:
+            if first_run:
+                # speak.play_audio('audios/startup.wav')
+                first_run = False
             print("Escutando...")
             audio = r.listen(source, phrase_time_limit=8)
 
