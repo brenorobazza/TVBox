@@ -7,7 +7,7 @@ import skills.speak as speak
 import skills.piadocas as piada
 import skills.quiz as quiz
 import skills.temperature as temperature
-import skills.calculo as calculo
+import skills.calculator as calculator
 
 
 ACTIVATION_WORD = "Box"
@@ -106,7 +106,7 @@ def find_skill(text):
 
     #Realizar uma operaçao matematica
     elif find_word_in_phrase(text, ["+","x","-","dividido"]):
-        speak.say(calculo.get_calculo(text))    
+        speak.say(calculator.get_calculo(text))    
 
     #elif find_word_in_phrase(text, ["previsão do tempo"]):
 

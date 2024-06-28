@@ -57,6 +57,7 @@ Tente perguntar "Box, que horas são?"
 | Quiz      | Perguntas gerais    | Faz uma pergunta e oferece quatro alternativas como resposta | `Quiz` | *Box, vamos jogar um quiz?*<br>*Box, iniciar quiz*<br>*Box, faça um quiz* |
 | Temperature      | Temperatura    | Diz a temperatura na cidade em que o usuário está | `Temperatura` | *Box, qual a temperatura agora?* |
 | Temperature      | Temperatura    | Diz a temperatura na cidade pedida pelo usuário | `Temperatura em <cidade>` | *Box, qual a temperatura agora em Campinas?* |
+| Calculator      | Calculadora    | Realiza a operação matemática solicitada | ` mais `<br>` menos `<br>` dividido por `<br>` vezes `<br> | *Box, quanto é 4 vezes 10?* |
 
 
 
