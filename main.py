@@ -9,8 +9,19 @@ import skills.quiz as quiz
 import skills.temperature as temperature
 import skills.calculator as calculator
 
+from ctypes import *
 
 ACTIVATION_WORD = "Box"
+
+ERROR_HANDLING_FUNC = CFUNCTYPE(None, c_char_p, c_int, c_char_p, c_int, c_char_p)
+
+def py_error_handler(filename, line, function, err, fmt):
+    pass
+
+c_error_handler = ERROR_HANDLING_FUNC(py_error_handler)
+asound = cdll.LoadLibrary('libasound.so')
+asound.snd_lib_error_set_handler(c_error_handler)
+
 
 
 class COMMAND:
@@ -148,7 +159,7 @@ def main():
     while running:
             
         # Aguarda instruções
-        with sr.Microphone() as source:
+        with sr.Microphone(device_index=0) as source:
             if first_run:
                 # speak.play_audio('audios/startup.wav')
                 first_run = False
