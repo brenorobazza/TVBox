@@ -10,17 +10,32 @@ import skills.temperature as temperature
 import skills.calculator as calculator
 
 from ctypes import *
+import platform
 
 ACTIVATION_WORD = "Box"
 
+# Defina a função de tratamento de erros
 ERROR_HANDLING_FUNC = CFUNCTYPE(None, c_char_p, c_int, c_char_p, c_int, c_char_p)
 
 def py_error_handler(filename, line, function, err, fmt):
     pass
 
 c_error_handler = ERROR_HANDLING_FUNC(py_error_handler)
-asound = cdll.LoadLibrary('libasound.so')
-asound.snd_lib_error_set_handler(c_error_handler)
+
+# Verifique o sistema operacional
+if platform.system() == "Linux":
+    # Carregar a biblioteca ALSA no Linux
+    asound = cdll.LoadLibrary('libasound.so')
+    asound.snd_lib_error_set_handler(c_error_handler)
+elif platform.system() == "Windows":
+    # No Windows, você pode usar outra biblioteca ou método apropriado
+    import winsound
+    # winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+    # A função winsound.PlaySound é usada como exemplo
+    # Ajuste conforme a necessidade específica do seu projeto
+    print("Configuração específica para Windows.")
+else:
+    print("Sistema operacional não suportado.")
 
 
 
