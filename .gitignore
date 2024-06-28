@@ -1,3 +1,5 @@
 audios/phrase.mp3
 tvbox/
 *pycache*
+bin/
+lib/
