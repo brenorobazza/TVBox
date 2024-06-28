@@ -159,7 +159,7 @@ def main():
     while running:
             
         # Aguarda instruções
-        with sr.Microphone(device_index=0) as source:
+        with sr.Microphone() as source:
             if first_run:
                 # speak.play_audio('audios/startup.wav')
                 first_run = False
