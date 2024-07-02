@@ -3,3 +3,4 @@ tvbox/
 *pycache*
 bin/
 lib/
+.DS_Store
