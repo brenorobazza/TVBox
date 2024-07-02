@@ -4,3 +4,4 @@ tvbox/
 bin/
 lib/
 .DS_Store
+pyvenv.cfg
