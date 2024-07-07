@@ -181,19 +181,19 @@ def main():
             print("Escutando...")
             audio = r.listen(source, phrase_time_limit=8)
 
-        try:
-            frase = r.recognize_google(audio, language="pt-BR").lower()
-            print("Você disse: " + frase)
+            try:
+                frase = r.recognize_google(audio, language="pt-BR").lower()
+                print("Você disse: " + frase)
 
-            if ACTIVATION_WORD.lower() in frase:
-                command = find_skill(frase)
-                if command == COMMAND.DESLIGAR:
-                    running = False
+                if ACTIVATION_WORD.lower() in frase:
+                    command = find_skill(frase)
+                    if command == COMMAND.DESLIGAR:
+                        running = False
 
-        except sr.UnknownValueError:
-            print("Não entendi o que disse")
-        except sr.RequestError as e:
-            print(f"Não consegui encontrar resultados; {e}")
+            except sr.UnknownValueError:
+                print("Não entendi o que disse")
+            except sr.RequestError as e:
+                print(f"Não consegui encontrar resultados; {e}")
 
 
 if __name__ == "__main__":
