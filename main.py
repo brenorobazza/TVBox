@@ -149,6 +149,7 @@ def find_skill(text):
 
 def main():
     r = sr.Recognizer()
+    print(">"*10, "\n", sr.Microphone.list_microphone_names())
     running = True
     first_run = True
     
@@ -174,7 +175,8 @@ def main():
     while running:
             
         # Aguarda instruções
-        with sr.Microphone() as source:
+        with sr.Microphone(device_index=1) as source:
+            print(">"*10, source)
             if first_run:
                 # speak.play_audio('audios/startup.wav')
                 first_run = False
